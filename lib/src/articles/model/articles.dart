@@ -52,6 +52,25 @@ class NewsSource {
   }
 }
 
+const queries = [
+  "coffee",
+  "barista",
+  "sport",
+  "skiing",
+  "coffee",
+  "barista",
+  "sport",
+  "skiing",
+  "coffee",
+  "barista",
+  "sport",
+  "skiing",
+  "coffee",
+  "barista",
+  "sport",
+  "skiing",
+];
+
 // Testing examples
 List<Map<String, dynamic>> sampleArticles = [
   {
