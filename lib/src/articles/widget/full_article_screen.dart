@@ -100,9 +100,7 @@ class FullArticleScreen extends StatelessWidget {
   }
 
   launchURL(url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
+    if (!await launchUrl(Uri.parse(url))) {
       throw 'Could not launch $url';
     }
   }

@@ -37,6 +37,12 @@ class _NewsListScreenState extends State<NewsListScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
     updateArticlesFuture(
         queries[0], AppLocalizations.of(context)['apiLanguage']);
   }
