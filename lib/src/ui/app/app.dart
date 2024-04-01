@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../articles/widget/articles_list_screen.dart';
-import '../articles/widget/full_article_screen.dart';
-import '../localizations/localization.dart';
-import '../navigator/manager.dart';
+import 'package:news_app/src/ui/screens/articles_list/articles_list_screen.dart';
+import 'package:news_app/src/ui/screens/full_article/full_article_screen.dart';
+import 'package:news_app/src/ui/localizations/localization.dart';
+import 'package:news_app/src/ui/navigator/manager.dart';
+
+import '../screens/favourite_articles/favourite_articles_screen.dart';
 
 class App extends StatelessWidget {
   final navigatorManager = NavigatorManager();
@@ -12,7 +15,9 @@ class App extends StatelessWidget {
   App({super.key});
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) =>
+  ProviderScope(
+  child: MaterialApp(
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -28,10 +33,12 @@ class App extends StatelessWidget {
           '/': (context) => NewsListScreen(navigatorManager: navigatorManager),
           '/full_article': (context) =>
               FullArticleScreen(navigatorManager: navigatorManager),
+          '/favourite_articles': (context) =>  FavouriteArticlesScreen(navigatorManager: navigatorManager),
         },
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         ),
         debugShowCheckedModeBanner: false,
-      );
+      )
+  );
 }

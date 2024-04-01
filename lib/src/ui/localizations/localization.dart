@@ -24,9 +24,9 @@ class _AppLocalizationsDelegate
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    Map<String, String> _localizedStrings;
+    Map<String, String> localizedStrings;
     if (locale.languageCode == 'ru') {
-      _localizedStrings = {
+      localizedStrings = {
         'news': 'Новости',
         'article': 'Статья',
         'apiLanguage': 'ru',
@@ -35,9 +35,10 @@ class _AppLocalizationsDelegate
         'sport': 'Спорт',
         'skiing': 'Лыжи',
         'music': 'Музыка',
+        'favorites': 'Избранное'
       };
     } else {
-      _localizedStrings = {
+      localizedStrings = {
         'news': 'News',
         'article': 'Article',
         'apiLanguage': 'en',
@@ -46,9 +47,10 @@ class _AppLocalizationsDelegate
         'sport': 'Sport',
         'skiing': 'Skiing',
         'music': 'Music',
+        'favorites': 'Favorites'
       };
     }
-    return AppLocalizations(_localizedStrings);
+    return AppLocalizations(localizedStrings);
   }
 
   @override

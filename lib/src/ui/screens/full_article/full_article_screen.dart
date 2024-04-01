@@ -4,9 +4,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../localizations/localization.dart';
-import '../../navigator/manager.dart';
-import '../model/articles.dart';
+import 'package:news_app/src/ui/localizations/localization.dart';
+import 'package:news_app/src/ui/navigator/manager.dart';
+import 'package:news_app/src/domain/model/articles.dart';
+
+import '../../../data/api/images.dart';
+import '../../../data/api/launch.dart';
 
 class FullArticleScreen extends StatelessWidget {
   final NavigatorManager navigatorManager;
@@ -17,12 +20,12 @@ class FullArticleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-    final articleJson = args?['article'] ?? "{}";
+    final articleJson = args?['article'] ?? '{}';
     final article = NewsArticle.fromJson(json.decode(articleJson));
 
     return Scaffold(
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context)['article'] ?? ""),
+            title: Text(AppLocalizations.of(context)['article'] ?? ''),
             centerTitle: true),
         body: Padding(
             padding:
@@ -66,7 +69,7 @@ class FullArticleScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                "Author: ${article.author}",
+                'Author: ${article.author}',
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   fontSize: 18.0,
@@ -97,27 +100,5 @@ class FullArticleScreen extends StatelessWidget {
                 ),
               )
             ])));
-  }
-
-  launchURL(url) async {
-    if (!await launchUrl(Uri.parse(url))) {
-      throw 'Could not launch $url';
-    }
-  }
-
-  Future<ImageProvider> loadImage(url) async {
-    final httpClient = HttpClient();
-    try {
-      final request = await httpClient.headUrl(Uri.parse(url));
-      final response = await request.close();
-      if (response.statusCode == HttpStatus.notFound) {
-        return const AssetImage('assets/image_base.jpg');
-      }
-      return NetworkImage(url);
-    } catch (error) {
-      return const AssetImage('assets/image_base.jpg');
-    } finally {
-      httpClient.close();
-    }
   }
 }
