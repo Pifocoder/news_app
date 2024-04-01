@@ -17,26 +17,21 @@ class FavouriteArticlesScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)['favorites'] ?? ''),
           centerTitle: true,
-          ),
+        ),
         body: const Padding(
             padding: EdgeInsets.only(left: 10, right: 10),
-            child:
-    FavouriteArticlesList()
-    ));
+            child: FavouriteArticlesList()));
   }
-
 }
-class FavouriteArticlesList extends StatelessWidget {
 
+class FavouriteArticlesList extends StatelessWidget {
   const FavouriteArticlesList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ref, _) => FavouriteArticlesListView(
-          favouriteArticles: ref.watch(favouriteArticlesProvider)
-      )
-    );
+        builder: (context, ref, _) => FavouriteArticlesListView(
+            favouriteArticles: ref.watch(favouriteArticlesProvider)));
   }
 }
 
@@ -49,18 +44,15 @@ class FavouriteArticlesListView extends StatefulWidget {
 }
 
 class _FavouriteArticlesViewState extends State<FavouriteArticlesListView> {
-
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
         itemCount: widget.favouriteArticles.articles.length,
-        separatorBuilder: (context, index) =>
-        const SizedBox(
-          height: 15,
-        ),
+        separatorBuilder: (context, index) => const SizedBox(
+              height: 15,
+            ),
         itemBuilder: (context, index) {
           return RowItem(widget.favouriteArticles.articles[index]);
-        }
-    );
+        });
   }
 }

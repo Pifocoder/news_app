@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_app/src/core/providers.dart';
 import 'package:news_app/src/domain/repository/favourite_repository_impl.dart';
 
 import '../domain/model/articles.dart';
+
 class NewsArticleState extends Equatable {
   final List<NewsArticle> articles;
 
@@ -29,7 +29,8 @@ class NewsArticleState extends Equatable {
 class NewsArticleNotifier extends StateNotifier<NewsArticleState> {
   final FavouriteArticlesRepository _repository;
 
-  NewsArticleNotifier(this._repository) : super(const NewsArticleState.initial()) {
+  NewsArticleNotifier(this._repository)
+      : super(const NewsArticleState.initial()) {
     getNewsArticles();
   }
 

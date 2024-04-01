@@ -8,18 +8,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/articles.dart';
 import 'favourite_repository.dart';
 
-class FavouriteArticlesRepository implements IFavouriteArticlesRepository  {
+class FavouriteArticlesRepository implements IFavouriteArticlesRepository {
   static const favouriteArticles = 'favouriteArticles';
-  final Ref _ref; // Pass Re
-
-  FavouriteArticlesRepository(
-     this._ref,
-      );
+  FavouriteArticlesRepository();
 
   @override
   Future<void> saveNewsArticles(List<NewsArticle> articles) async {
     final prefs = await SharedPreferences.getInstance();
-    final jsonStringList = articles.map((article) => jsonEncode(article.toJson())).toList();
+    final jsonStringList =
+        articles.map((article) => jsonEncode(article.toJson())).toList();
     await prefs.setStringList(favouriteArticles, jsonStringList);
   }
 
@@ -27,13 +24,16 @@ class FavouriteArticlesRepository implements IFavouriteArticlesRepository  {
   Future<List<NewsArticle>> getNewsArticles() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonStringList = prefs.getStringList(favouriteArticles) ?? [];
-    return jsonStringList.map((jsonString) => NewsArticle.fromJson(jsonDecode(jsonString))).toList();
+    return jsonStringList
+        .map((jsonString) => NewsArticle.fromJson(jsonDecode(jsonString)))
+        .toList();
   }
 
   @override
   Future<void> toggleNewsArticle(NewsArticle article) async {
     final articles = await getNewsArticles();
-    final existingArticleIndex = articles.indexWhere((a) => a.url == article.url);
+    final existingArticleIndex =
+        articles.indexWhere((a) => a.url == article.url);
     if (existingArticleIndex == -1) {
       // Article doesn't exist, add it to the list
       articles.add(article);
@@ -43,13 +43,4 @@ class FavouriteArticlesRepository implements IFavouriteArticlesRepository  {
     }
     await saveNewsArticles(articles);
   }
-
-  @override
-  Future<bool> findNewsArticleByUrl(String url) async {
-    final articles = await getNewsArticles();
-    final foundArticleIndex = articles.indexWhere((article) => article.url == url);
-    return foundArticleIndex >= 0;
-  }
-
-
 }

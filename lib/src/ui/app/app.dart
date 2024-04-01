@@ -15,9 +15,8 @@ class App extends StatelessWidget {
   App({super.key});
 
   @override
-  Widget build(BuildContext context) =>
-  ProviderScope(
-  child: MaterialApp(
+  Widget build(BuildContext context) => ProviderScope(
+          child: MaterialApp(
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -33,12 +32,12 @@ class App extends StatelessWidget {
           '/': (context) => NewsListScreen(navigatorManager: navigatorManager),
           '/full_article': (context) =>
               FullArticleScreen(navigatorManager: navigatorManager),
-          '/favourite_articles': (context) =>  FavouriteArticlesScreen(navigatorManager: navigatorManager),
+          '/favourite_articles': (context) =>
+              FavouriteArticlesScreen(navigatorManager: navigatorManager),
         },
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         ),
         debugShowCheckedModeBanner: false,
-      )
-  );
+      ));
 }

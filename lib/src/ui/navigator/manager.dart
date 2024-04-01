@@ -9,6 +9,7 @@ class NavigatorManager {
   void goToFavouriteArticlesScreen(BuildContext context) {
     Navigator.pushNamed(context, '/favourite_articles');
   }
+
   void pushNamed(String routeName) {
     navigatorKey.currentState!.pushNamed(routeName);
   }

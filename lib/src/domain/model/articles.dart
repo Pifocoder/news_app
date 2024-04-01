@@ -1,36 +1,3 @@
-// import 'package:freezed_annotation/freezed_annotation.dart';
-// import 'package:flutter/foundation.dart';
-//
-// part 'articles.freezed.dart';
-// part 'articles.g.dart';
-//
-// @freezed
-// class NewsArticle with _$NewsArticle {
-//   const factory NewsArticle({
-//     required Source source,
-//     required String author,
-//     required String title,
-//     required String description,
-//     required String url,
-//     required String urlToImage,
-//     required DateTime publishedAt,
-//     required String content,
-//   }) = _NewsArticle;
-//
-//   factory NewsArticle.fromJson(Map<String, dynamic> json) => _$NewsArticleFromJson(json);
-// }
-//
-// @freezed
-// class Source with _$Source {
-//   const factory Source({
-//     required String? id,
-//     required String name,
-//   }) = _Source;
-//
-//   factory Source.fromJson(Map<String, dynamic> json) => _$SourceFromJson(json);
-// }
-//
-// const queries = ['coffee', 'barista', 'sport', 'skiing', 'music'];
 class NewsArticle {
   final String sourceName;
   final String author;
@@ -54,15 +21,16 @@ class NewsArticle {
 
   factory NewsArticle.fromJson(Map<String, dynamic> json) {
     return NewsArticle(
-      sourceName:
-      json['source'] != null ? json['source']['name'] : 'Unknown source',
+      sourceName: json['source'] != null
+          ? json['source']['name']
+          : json['sourceName'] ?? "Unknown source",
       author: json['author'] ?? 'Unknown author',
       title: json['title'] ?? 'Untitled',
       description: json['description'] ?? 'No description available',
       url: json['url'] ?? 'No URL',
       urlToImage: json['urlToImage'] ?? 'No image available',
       publishedAt:
-      DateTime.parse(json['publishedAt'] ?? DateTime.now().toString()),
+          DateTime.parse(json['publishedAt'] ?? DateTime.now().toString()),
       content: json['content'] ?? 'No content available',
     );
   }

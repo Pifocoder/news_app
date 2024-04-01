@@ -17,10 +17,10 @@ class FilterItem extends StatefulWidget {
 
   const FilterItem(
       {super.key,
-        required this.query,
-        required this.loadArticles,
-        required this.updateArticlesFuture,
-        required this.activeQuery});
+      required this.query,
+      required this.loadArticles,
+      required this.updateArticlesFuture,
+      required this.activeQuery});
 
   @override
   State<FilterItem> createState() => _FilterItemState();

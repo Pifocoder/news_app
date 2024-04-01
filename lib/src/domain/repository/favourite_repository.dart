@@ -7,5 +7,4 @@ abstract interface class IFavouriteArticlesRepository {
   Future<void> saveNewsArticles(List<NewsArticle> articles);
   Future<List<NewsArticle>> getNewsArticles();
   Future<void> toggleNewsArticle(NewsArticle article);
-  Future<bool> findNewsArticleByUrl(String url);
 }

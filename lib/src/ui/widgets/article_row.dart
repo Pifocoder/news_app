@@ -31,21 +31,21 @@ class ArticleRow extends ConsumerWidget {
                       color: Colors.grey.shade200.withOpacity(0.2),
                       image: snapshot.connectionState == ConnectionState.waiting
                           ? const DecorationImage(
-                        alignment: Alignment.center,
-                        image: AssetImage('assets/image_loading.gif'),
-                        fit: BoxFit.contain,
-                      )
+                              alignment: Alignment.center,
+                              image: AssetImage('assets/image_loading.gif'),
+                              fit: BoxFit.contain,
+                            )
                           : snapshot.hasError || !snapshot.hasData
-                          ? const DecorationImage(
-                        alignment: Alignment.topCenter,
-                        image: AssetImage('assets/image_error.png'),
-                        fit: BoxFit.cover,
-                      )
-                          : DecorationImage(
-                        alignment: Alignment.topCenter,
-                        image: snapshot.data as ImageProvider,
-                        fit: BoxFit.cover,
-                      ),
+                              ? const DecorationImage(
+                                  alignment: Alignment.topCenter,
+                                  image: AssetImage('assets/image_error.png'),
+                                  fit: BoxFit.cover,
+                                )
+                              : DecorationImage(
+                                  alignment: Alignment.topCenter,
+                                  image: snapshot.data as ImageProvider,
+                                  fit: BoxFit.cover,
+                                ),
                     ),
                     child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
@@ -58,7 +58,8 @@ class ArticleRow extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: Text(
@@ -73,7 +74,8 @@ class ArticleRow extends ConsumerWidget {
                                             letterSpacing: 1.2,
                                             shadows: [
                                               Shadow(
-                                                color: Colors.grey.withOpacity(0.5),
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
                                                 blurRadius: 2,
                                                 offset: const Offset(2, 2),
                                               ),
@@ -82,23 +84,36 @@ class ArticleRow extends ConsumerWidget {
                                         ),
                                       ),
                                       IconButton(
-                                        icon :  Icon(
-        ref.watch(favouriteArticlesProvider).articles.indexWhere((repoArticle) => article.url == repoArticle.url) >= 0 ? Icons.favorite : Icons.favorite_border,
-                                              size: 35,
-                                              color: Colors.white,
+                                        icon: Icon(
+                                          ref
+                                                      .watch(
+                                                          favouriteArticlesProvider)
+                                                      .articles
+                                                      .indexWhere(
+                                                          (repoArticle) =>
+                                                              article.url ==
+                                                              repoArticle
+                                                                  .url) >=
+                                                  0
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          size: 35,
+                                          color: Colors.white,
                                         ),
                                         onPressed: () {
-                                          ref.read(favouriteArticlesProvider.notifier).toggleNewsArticle(article);
+                                          ref
+                                              .read(favouriteArticlesProvider
+                                                  .notifier)
+                                              .toggleNewsArticle(article);
                                           //ref.read(favouriteArticlesRepositoryProvider).toggleNewsArticle(article);
                                         },
                                       ),
                                     ],
                                   ),
-
                                   const SizedBox(height: 120),
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         makeShort(article.author),

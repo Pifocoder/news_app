@@ -51,8 +51,8 @@ class _NewsListScreenState extends State<NewsListScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-          title: Text(AppLocalizations.of(context)['news'] ?? ''),
-          centerTitle: true,
+        title: Text(AppLocalizations.of(context)['news'] ?? ''),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.favorite, size: 35),
@@ -60,7 +60,8 @@ class _NewsListScreenState extends State<NewsListScreen> {
               widget.navigatorManager.goToFavouriteArticlesScreen(context);
             },
           ),
-        ],),
+        ],
+      ),
       body: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: Column(children: [
@@ -107,6 +108,5 @@ class _NewsListScreenState extends State<NewsListScreen> {
                         return const Center(child: CircularProgressIndicator());
                       }
                     }))
-          ]))
-  );
+          ])));
 }
