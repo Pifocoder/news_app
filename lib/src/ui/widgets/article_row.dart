@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -16,10 +17,8 @@ class ArticleRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return FutureBuilder(
-      future: loadImage(article.urlToImage),
-      builder: (BuildContext context, AsyncSnapshot<ImageProvider> snapshot) {
-        return ClipRRect(
+    return
+        ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: InkWell(
                 onTap: () {
@@ -29,25 +28,33 @@ class ArticleRow extends ConsumerWidget {
                 child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey.shade200.withOpacity(0.2),
-                      image: snapshot.connectionState == ConnectionState.waiting
-                          ? const DecorationImage(
-                              alignment: Alignment.center,
-                              image: AssetImage('assets/image_loading.gif'),
-                              fit: BoxFit.contain,
-                            )
-                          : snapshot.hasError || !snapshot.hasData
-                              ? const DecorationImage(
-                                  alignment: Alignment.topCenter,
-                                  image: AssetImage('assets/image_error.png'),
-                                  fit: BoxFit.cover,
-                                )
-                              : DecorationImage(
-                                  alignment: Alignment.topCenter,
-                                  image: snapshot.data as ImageProvider,
-                                  fit: BoxFit.cover,
-                                ),
                     ),
-                    child: BackdropFilter(
+                    child:
+                    SizedBox (
+                    height: 240,
+
+                    child: Stack(
+
+                    children :[
+                      CachedNetworkImage(
+                      imageUrl: article.urlToImage,
+                      placeholder: (context, url) => Image.asset(
+                          'assets/image_loading.gif',
+                          fit: BoxFit.cover,
+                      ),
+                        errorWidget : (context, url, error) => Image.asset(
+                            'assets/image_error.png',
+                            fit: BoxFit.cover,
+                        ),
+                      imageBuilder: (context, image) => Image(
+
+                        image: image,
+                        fit: BoxFit.cover,
+                      ),
+
+                      fit: BoxFit.cover,
+                    ),
+                    BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
                         child: Container(
                             color: Colors.black.withOpacity(0.5),
@@ -56,6 +63,7 @@ class ArticleRow extends ConsumerWidget {
                                   top: 20, bottom: 20, left: 15, right: 15),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     mainAxisAlignment:
@@ -110,7 +118,6 @@ class ArticleRow extends ConsumerWidget {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 120),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -133,9 +140,8 @@ class ArticleRow extends ConsumerWidget {
                                   )
                                 ],
                               ),
-                            ))))));
-      },
-    );
+                            )))])
+            ))));
   }
 
   String makeShort(word) {
