@@ -16,7 +16,6 @@ void main() {
     final appBar = find.byType(SliverPersistentHeader);
 
     expect(appBar, findsOneWidget);
-    print("find one article and tap it");
     final favorites = find.descendant(
       of: appBar,
       matching:
@@ -26,7 +25,6 @@ void main() {
     await tester.pumpAndSettle(const Duration(seconds: 2));
 
     expect(find.byIcon(Icons.favorite), findsOneWidget);
-    print("find one article in favorites");
     await tester.pumpWidget(App());
     await tester.pumpAndSettle(const Duration(seconds: 2));
 
@@ -35,7 +33,6 @@ void main() {
     await tester.pumpAndSettle(const Duration(seconds: 2));
 
     expect(appBar, findsOneWidget);
-    print("find favorites");
     final _ = find.descendant(
       of: appBar,
       matching: find.byIcon(Icons.favorite),
