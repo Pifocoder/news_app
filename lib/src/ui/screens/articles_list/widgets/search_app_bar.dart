@@ -12,7 +12,11 @@ class SliverSearchAppBar extends SliverPersistentHeaderDelegate {
   final Map<String, String> activeQuery;
   final void Function(String queryName, String queryValue) updateActiveQuery;
 
-  SliverSearchAppBar({required this.queryName, required this.activeQuery, required this.updateActiveQuery, required this.navigatorManager});
+  SliverSearchAppBar(
+      {required this.queryName,
+      required this.activeQuery,
+      required this.updateActiveQuery,
+      required this.navigatorManager});
 
   @override
   Widget build(
@@ -33,13 +37,13 @@ class SliverSearchAppBar extends SliverPersistentHeaderDelegate {
                 child: Center(
                   child: Row(
                     children: [
-                       Expanded(
+                      Expanded(
                         flex: 4,
                         child: SearchBar(
                           padding: const MaterialStatePropertyAll<EdgeInsets>(
                               EdgeInsets.symmetric(horizontal: 16.0)),
                           leading: const Icon(Icons.search),
-                          onSubmitted:(value) {
+                          onSubmitted: (value) {
                             updateActiveQuery(queryName, value);
                           },
                         ),

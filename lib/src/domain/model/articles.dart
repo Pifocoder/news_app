@@ -1,4 +1,3 @@
-
 class NewsArticle {
   final String sourceName;
   final String author;

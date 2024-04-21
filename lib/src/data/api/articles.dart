@@ -6,11 +6,11 @@ import '../../domain/model/articles.dart';
 String _formatTwoDigits(int number) {
   return number.toString().padLeft(2, '0');
 }
-String formatDateTimeApi(DateTime date) {
-  return
-      '${date.year}-${_formatTwoDigits(date.month)}-${_formatTwoDigits(date.day)}';
 
+String formatDateTimeApi(DateTime date) {
+  return '${date.year}-${_formatTwoDigits(date.month)}-${_formatTwoDigits(date.day)}';
 }
+
 String getArticlesUrl(Map<String, String> query, String language) {
   return 'https://newsapi.org/v2/everything?q=${query['q']}&from=${query['from']}&to=${query['to']}&language=$language&sortBy=publishedAt&apiKey=cda6259bab7c4ba091458b5f42d5ae80';
 }

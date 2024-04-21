@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:news_app/src/domain/model/articles.dart';
 
@@ -29,10 +28,11 @@ class _NewsListScreenState extends State<NewsListScreen>
   @override
   void initState() {
     super.initState();
-    activeQuery =  {
+    activeQuery = {
       'q': 'coffee',
       'from': formatDateTimeApi(DateTime.now()),
-      'to': formatDateTimeApi(DateTime.now().subtract(const Duration(days: 10))),
+      'to':
+          formatDateTimeApi(DateTime.now().subtract(const Duration(days: 10))),
     };
     _heartIconController = AnimationController(
       duration: const Duration(milliseconds: 320),
@@ -50,14 +50,15 @@ class _NewsListScreenState extends State<NewsListScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _updateArticlesFuture(activeQuery, AppLocalizations.of(context)['apiLanguage']);
+    _updateArticlesFuture(
+        activeQuery, AppLocalizations.of(context)['apiLanguage']);
   }
 
   void _updateActiveQuery(String name, String value) {
     final newQuery = activeQuery;
     newQuery[name] = value;
     setState(() {
-      activeQuery= newQuery;
+      activeQuery = newQuery;
     });
     _updateArticlesFuture(
         activeQuery, AppLocalizations.of(context)['apiLanguage']);
@@ -74,66 +75,65 @@ class _NewsListScreenState extends State<NewsListScreen>
       controller: _heartIconController,
       child: Scaffold(
           body: CustomScrollView(slivers: [
-                SliverPersistentHeader(
-                  delegate: SliverSearchAppBar(navigatorManager: widget.navigatorManager, queryName: "q",
-                    activeQuery: activeQuery,
-                    updateActiveQuery: _updateActiveQuery),
-                  pinned: true,
+        SliverPersistentHeader(
+          delegate: SliverSearchAppBar(
+              navigatorManager: widget.navigatorManager,
+              queryName: "q",
+              activeQuery: activeQuery,
+              updateActiveQuery: _updateActiveQuery),
+          pinned: true,
+        ),
+        SliverToBoxAdapter(
+          child: LimitedBox(
+            maxHeight: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FilterItem(
+                  query: "from",
+                  activeQuery: activeQuery,
+                  updateActiveQuery: _updateActiveQuery,
                 ),
-                SliverToBoxAdapter(
-                  child: LimitedBox(
-                    maxHeight: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FilterItem(
-                          query: "from",
-                          activeQuery: activeQuery,
-                          updateActiveQuery: _updateActiveQuery,
-                        ),
-                        FilterItem(
-                          query: "to",
-                          activeQuery: activeQuery,
-                          updateActiveQuery: _updateActiveQuery,
-                        ),
-                      ],
+                FilterItem(
+                  query: "to",
+                  activeQuery: activeQuery,
+                  updateActiveQuery: _updateActiveQuery,
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SliverToBoxAdapter(
+          child: SizedBox(
+            height: 20,
+          ),
+        ),
+        FutureBuilder(
+            future: articlesFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  List<NewsArticle> articles = snapshot.data!;
+                  return SliverList.separated(
+                    itemBuilder: (context, index) {
+                      return Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: RowItem(articles[index]));
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 15,
                     ),
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 20,
-                  ),
-                ),
-                  FutureBuilder(
-                      future: articlesFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasData) {
-                            List<NewsArticle> articles = snapshot.data!;
-                            return SliverList.separated(
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                    padding: const EdgeInsets.only(left: 10, right: 10),
-                                child: RowItem(articles[index])
-                                );
-                              },
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                height: 15,
-                              ),
-                              itemCount: articles.length,
-                            );
-                          } else {
-                            return const SliverToBoxAdapter(child:  Text('error'));
-                          }
-                        } else {
-                          return const SliverToBoxAdapter(child: Center(
-                              child: CircularProgressIndicator()));
-                        }
-                      }),
-
-              ])));
+                    itemCount: articles.length,
+                  );
+                } else {
+                  return const SliverToBoxAdapter(child: Text('error'));
+                }
+              } else {
+                return const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()));
+              }
+            }),
+      ])));
 }
 
 class AnimationControllerProvider extends InheritedWidget {

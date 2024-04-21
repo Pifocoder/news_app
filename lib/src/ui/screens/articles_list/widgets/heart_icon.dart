@@ -6,7 +6,8 @@ import '../articles_list_screen.dart';
 class AnimatedFavoriteIconButton extends StatelessWidget {
   final NavigatorManager navigatorManager;
 
-  const AnimatedFavoriteIconButton({super.key,
+  const AnimatedFavoriteIconButton({
+    super.key,
     required this.navigatorManager,
   });
 
@@ -19,20 +20,20 @@ class AnimatedFavoriteIconButton extends StatelessWidget {
         curve: Curves.decelerate,
       ),
       builder: (buildContext, child) {
-        final double bounceValue = controller.value *
-            15.0;
+        final double bounceValue = controller.value * 15.0;
 
         return Transform.translate(
-          offset: Offset(0.0, -bounceValue.abs()), child: IconButton(
-          icon: const Icon(
-            color: Colors.white,
-            Icons.favorite,
-            size: 55,
-          ),
-          onPressed: () {
-            navigatorManager.goToFavouriteArticlesScreen(context);
-          },
-        ));
+            offset: Offset(0.0, -bounceValue.abs()),
+            child: IconButton(
+              icon: const Icon(
+                color: Colors.white,
+                Icons.favorite,
+                size: 55,
+              ),
+              onPressed: () {
+                navigatorManager.goToFavouriteArticlesScreen(context);
+              },
+            ));
       },
     );
   }

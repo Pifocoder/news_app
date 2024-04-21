@@ -14,7 +14,7 @@ class ArticlePreviewImage extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       placeholder: (context, url) =>
-      const Center(child: CircularProgressIndicator()),
+          const Center(child: CircularProgressIndicator()),
       errorWidget: (context, url, error) => Image.asset(
         'assets/image_base.jpg',
         fit: BoxFit.cover,

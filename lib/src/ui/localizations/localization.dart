@@ -52,8 +52,8 @@ class _AppLocalizationsDelegate
         'skiing': 'Skiing',
         'music': 'Music',
         'favorites': 'Favorites',
-    'to': "to",
-    'from': "from"
+        'to': "to",
+        'from': "from"
       };
     }
     return AppLocalizations(localizedStrings);

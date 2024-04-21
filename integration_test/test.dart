@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_app/src/ui/app/app.dart';
@@ -38,8 +37,7 @@ void main() {
     expect(appBar, findsOneWidget);
     final _ = find.descendant(
       of: appBar,
-      matching:
-          find.byIcon(Icons.favorite),
+      matching: find.byIcon(Icons.favorite),
     );
     await tester.tap(favorites);
     await tester.pumpAndSettle(const Duration(seconds: 2));

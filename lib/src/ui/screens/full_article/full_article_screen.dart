@@ -32,8 +32,9 @@ class FullArticleScreen extends StatelessWidget {
               Hero(
                   tag: 'articleImage${article.url}',
                   child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                      child: ArticlePreviewImage(imageUrl: article.urlToImage))),
+                      borderRadius: BorderRadius.circular(20),
+                      child:
+                          ArticlePreviewImage(imageUrl: article.urlToImage))),
               const SizedBox(height: 20),
               Text(
                 article.title,

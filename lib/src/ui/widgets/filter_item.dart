@@ -1,20 +1,21 @@
-
 import 'package:flutter/material.dart';
 
 import '../../data/api/articles.dart';
 import '../localizations/localization.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
-as picker;
+    as picker;
 
 class FilterItem extends StatefulWidget {
   final String query;
   final Map<String, String> activeQuery;
 
   final void Function(String queryName, String queryValue) updateActiveQuery;
-  const FilterItem(
-      {super.key,
-      required this.query, required this.updateActiveQuery, required this.activeQuery,
-      });
+  const FilterItem({
+    super.key,
+    required this.query,
+    required this.updateActiveQuery,
+    required this.activeQuery,
+  });
 
   @override
   State<FilterItem> createState() => _FilterItemState();
@@ -30,6 +31,7 @@ class _FilterItemState extends State<FilterItem> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -54,18 +56,20 @@ class _FilterItemState extends State<FilterItem> {
         ),
         onTap: () {
           picker.DatePicker.showDatePicker(context,
-              showTitleActions: true, onChanged: (date) {},
+              showTitleActions: true,
+              onChanged: (date) {},
               minTime: DateTime.now().subtract(const Duration(days: 30)),
-              maxTime: DateTime.now(),
-              onConfirm: (date) {
-                final formatDate = formatDateTimeApi(date);
-                setState(() {
-                  queryData = formatDate;
-                });
-                widget.updateActiveQuery(widget.query, formatDate);
-              },
+              maxTime: DateTime.now(), onConfirm: (date) {
+            final formatDate = formatDateTimeApi(date);
+            setState(() {
+              queryData = formatDate;
+            });
+            widget.updateActiveQuery(widget.query, formatDate);
+          },
               currentTime: DateTime(2008, 12, 31, 23, 12, 34),
-              locale: picker.LocaleType.values.firstWhere((element) => element.name == AppLocalizations.of(context)['languageCode']));
+              locale: picker.LocaleType.values.firstWhere((element) =>
+                  element.name ==
+                  AppLocalizations.of(context)['languageCode']));
         });
   }
 }
