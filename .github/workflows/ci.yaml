@@ -1,0 +1,70 @@
+name: 'ci'
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  analyze-flutter-project:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze .
+      - run: dart format --set-exit-if-changed .
+
+  run-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [analyze-flutter-project]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter test
+
+  build-android:
+    needs: [run-tests, analyze-flutter-project]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter build apk
+
+  build-ios:
+    needs: [run-tests, analyze-flutter-project]
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter build ipa --no-codesign
+
+  build-android-release:
+    needs: run-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter build apk
+      - name: "Upload apk artifacts"
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: apk/app-release.apk
