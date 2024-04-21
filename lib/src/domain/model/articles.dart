@@ -1,3 +1,4 @@
+
 class NewsArticle {
   final String sourceName;
   final String author;
@@ -64,5 +65,3 @@ class NewsSource {
     );
   }
 }
-
-const queries = ["coffee", "barista", "sport", "skiing", "music"];

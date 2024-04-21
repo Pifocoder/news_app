@@ -27,6 +27,7 @@ class _AppLocalizationsDelegate
     Map<String, String> localizedStrings;
     if (locale.languageCode == 'ru') {
       localizedStrings = {
+        'languageCode': 'ru',
         'news': 'Новости',
         'article': 'Статья',
         'apiLanguage': 'ru',
@@ -35,10 +36,13 @@ class _AppLocalizationsDelegate
         'sport': 'Спорт',
         'skiing': 'Лыжи',
         'music': 'Музыка',
-        'favorites': 'Избранное'
+        'favorites': 'Избранное',
+        'to': "до",
+        'from': "от"
       };
     } else {
       localizedStrings = {
+        'languageCode': 'en',
         'news': 'News',
         'article': 'Article',
         'apiLanguage': 'en',
@@ -47,7 +51,9 @@ class _AppLocalizationsDelegate
         'sport': 'Sport',
         'skiing': 'Skiing',
         'music': 'Music',
-        'favorites': 'Favorites'
+        'favorites': 'Favorites',
+    'to': "to",
+    'from': "from"
       };
     }
     return AppLocalizations(localizedStrings);

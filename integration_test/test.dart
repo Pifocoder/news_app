@@ -1,13 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:news_app/src/data/api/articles.dart';
 import 'package:news_app/src/ui/app/app.dart';
-import 'package:nock/nock.dart';
 import 'package:integration_test/integration_test.dart';
 
 void main() {

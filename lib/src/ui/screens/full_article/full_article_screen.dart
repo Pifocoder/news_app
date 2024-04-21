@@ -1,15 +1,13 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:news_app/src/ui/localizations/localization.dart';
 import 'package:news_app/src/ui/navigator/manager.dart';
 import 'package:news_app/src/domain/model/articles.dart';
 
-import '../../../data/api/images.dart';
 import '../../../data/api/launch.dart';
+import '../../widgets/article_preview.dart';
 
 class FullArticleScreen extends StatelessWidget {
   final NavigatorManager navigatorManager;
@@ -31,31 +29,11 @@ class FullArticleScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 40),
             child: ListView(children: [
-              ClipRRect(
+              Hero(
+                  tag: 'articleImage${article.url}',
+                  child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: FutureBuilder(
-                      future: loadImage(article.urlToImage),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<ImageProvider> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Image(
-                            image: AssetImage('assets/image_loading.gif'),
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          );
-                        } else {
-                          if (snapshot.hasError || !snapshot.hasData) {
-                            return Container();
-                          } else {
-                            return Image(
-                              image: snapshot.data as ImageProvider,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            );
-                          }
-                        }
-                      })),
+                      child: ArticlePreviewImage(imageUrl: article.urlToImage))),
               const SizedBox(height: 20),
               Text(
                 article.title,

@@ -1,61 +1,71 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import '../../domain/model/articles.dart';
+import '../../data/api/articles.dart';
 import '../localizations/localization.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+as picker;
 
 class FilterItem extends StatefulWidget {
   final String query;
-  final Future<List<NewsArticle>> Function(String url) loadArticles;
-  final void Function(String url, String language) updateArticlesFuture;
+  final Map<String, String> activeQuery;
 
-  final String activeQuery;
-
+  final void Function(String queryName, String queryValue) updateActiveQuery;
   const FilterItem(
       {super.key,
-      required this.query,
-      required this.loadArticles,
-      required this.updateArticlesFuture,
-      required this.activeQuery});
+      required this.query, required this.updateActiveQuery, required this.activeQuery,
+      });
 
   @override
   State<FilterItem> createState() => _FilterItemState();
 }
 
 class _FilterItemState extends State<FilterItem> {
+  late String queryData;
+
+  @override
+  void initState() {
+    setState(() {
+      queryData = widget.activeQuery[widget.query]!;
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return InkWell(
         child: Container(
-          width: 90,
+          width: 180,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: (widget.activeQuery == widget.query)
-                ? Colors.black
-                : Colors.white,
+            color: Colors.white,
             border: Border.all(
               color: Colors.black, // Border color
               width: 2, // Border width
             ),
           ),
           child: Text(
-            AppLocalizations.of(context)[widget.query] ?? '',
-            style: TextStyle(
+            "${AppLocalizations.of(context)[widget.query]!}: $queryData",
+            style: const TextStyle(
               fontSize: 18.0,
-              color: (widget.activeQuery == widget.query)
-                  ? Colors.white
-                  : Colors.black,
+              color: Colors.black,
             ),
           ),
         ),
         onTap: () {
-          widget.updateArticlesFuture(widget.query,
-              AppLocalizations.of(context)['apiLanguage'] ?? 'en');
+          picker.DatePicker.showDatePicker(context,
+              showTitleActions: true, onChanged: (date) {},
+              minTime: DateTime.now().subtract(const Duration(days: 30)),
+              maxTime: DateTime.now(),
+              onConfirm: (date) {
+                final formatDate = formatDateTimeApi(date);
+                setState(() {
+                  queryData = formatDate;
+                });
+                widget.updateActiveQuery(widget.query, formatDate);
+              },
+              currentTime: DateTime(2008, 12, 31, 23, 12, 34),
+              locale: picker.LocaleType.values.firstWhere((element) => element.name == AppLocalizations.of(context)['languageCode']));
         });
   }
 }

@@ -1,8 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_app/src/core/providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/articles.dart';
