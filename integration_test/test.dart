@@ -35,13 +35,11 @@ void main() {
     await tester.tap(iconButton1);
     await tester.pumpAndSettle(const Duration(seconds: 2));
 
-    final appBar1 = find.byType(AppBar);
-
     expect(appBar, findsOneWidget);
-    final favorites1 = find.descendant(
+    final _ = find.descendant(
       of: appBar,
       matching:
-          find.byIcon(Icons.favorite), // Replace with the icon you want to find
+          find.byIcon(Icons.favorite),
     );
     await tester.tap(favorites);
     await tester.pumpAndSettle(const Duration(seconds: 2));

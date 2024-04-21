@@ -55,8 +55,7 @@ void main() {
       expect(pref.getStringList('favouriteArticles'), encodedList);
     });
     test('add two articles and get them', () async {
-      SharedPreferences.setMockInitialValues({}); //set values here
-      SharedPreferences pref = await SharedPreferences.getInstance();
+      SharedPreferences.setMockInitialValues({});
       FavouriteArticlesRepository repo = FavouriteArticlesRepository();
 
       NewsArticle article1 = NewsArticle(
