@@ -8,11 +8,11 @@ void main() {
 
   testWidgets("Проверка добавления и удаления из избранного", (tester) async {
     await tester.pumpWidget(App());
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle(const Duration(seconds: 4));
 
     final iconButton = find.byIcon(Icons.favorite_border).first;
     await tester.tap(iconButton);
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle(const Duration(seconds: 4));
     final appBar = find.byType(SliverPersistentHeader);
 
     expect(appBar, findsOneWidget);
@@ -22,15 +22,15 @@ void main() {
           find.byIcon(Icons.favorite), // Replace with the icon you want to find
     );
     await tester.tap(favorites);
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle(const Duration(seconds: 4));
 
     expect(find.byIcon(Icons.favorite), findsOneWidget);
     await tester.pumpWidget(App());
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle(const Duration(seconds: 4));
 
     final iconButton1 = find.byIcon(Icons.favorite_border).first;
     await tester.tap(iconButton1);
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle(const Duration(seconds: 4));
 
     expect(appBar, findsOneWidget);
     final _ = find.descendant(
@@ -38,14 +38,14 @@ void main() {
       matching: find.byIcon(Icons.favorite),
     );
     await tester.tap(favorites);
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle(const Duration(seconds: 4));
 
     final iconButton3 = find.byIcon(Icons.favorite).first;
     await tester.tap(iconButton3);
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle(const Duration(seconds: 4));
     final iconButton4 = find.byIcon(Icons.favorite);
     await tester.tap(iconButton4);
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle(const Duration(seconds: 4));
 
     expect(find.byIcon(Icons.favorite), findsNothing);
   });

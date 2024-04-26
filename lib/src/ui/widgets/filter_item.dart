@@ -36,7 +36,7 @@ class _FilterItemState extends State<FilterItem> {
   Widget build(BuildContext context) {
     return InkWell(
         child: Container(
-          width: 180,
+          width: 160,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -66,7 +66,6 @@ class _FilterItemState extends State<FilterItem> {
             });
             widget.updateActiveQuery(widget.query, formatDate);
           },
-              currentTime: DateTime(2008, 12, 31, 23, 12, 34),
               locale: picker.LocaleType.values.firstWhere((element) =>
                   element.name ==
                   AppLocalizations.of(context)['languageCode']));
