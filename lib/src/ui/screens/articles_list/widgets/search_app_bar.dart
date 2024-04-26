@@ -23,42 +23,41 @@ class SliverSearchAppBar extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox(
         height: kMaxHeightAppBar,
-            child: ClipPath(
-                clipper: SliverSearchAppBarClipper(),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.black, Colors.black87],
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 30, right: 10),
-                    child: Center(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 4,
-                            child: SearchBar(
-                              padding:
-                                  const MaterialStatePropertyAll<EdgeInsets>(
-                                      EdgeInsets.symmetric(horizontal: 16.0)),
-                              leading: const Icon(Icons.search),
-                              onSubmitted: (value) {
-                                updateActiveQuery(queryName, value);
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: AnimatedFavoriteIconButton(
-                                navigatorManager: navigatorManager),
-                          )
-                        ],
+        child: ClipPath(
+            clipper: SliverSearchAppBarClipper(),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black, Colors.black87],
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 30, left: 30, right: 10),
+                child: Center(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: SearchBar(
+                          padding: const MaterialStatePropertyAll<EdgeInsets>(
+                              EdgeInsets.symmetric(horizontal: 16.0)),
+                          leading: const Icon(Icons.search),
+                          onSubmitted: (value) {
+                            updateActiveQuery(queryName, value);
+                          },
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        flex: 1,
+                        child: AnimatedFavoriteIconButton(
+                            navigatorManager: navigatorManager),
+                      )
+                    ],
                   ),
-                )));
+                ),
+              ),
+            )));
   }
 
   @override
