@@ -64,5 +64,3 @@ class NewsSource {
     );
   }
 }
-
-const queries = ["coffee", "barista", "sport", "skiing", "music"];

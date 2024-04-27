@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_app/src/core/notifier.dart';
 import '../../../core/providers.dart';
-import '../../../domain/repository/favourite_repository_impl.dart';
 import '../../localizations/localization.dart';
 import '../../navigator/manager.dart';
 import '../../widgets/row_item.dart';

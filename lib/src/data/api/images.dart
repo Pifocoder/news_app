@@ -7,7 +7,7 @@ Future<ImageProvider> loadImage(url) async {
   try {
     final request = await httpClient.headUrl(Uri.parse(url));
     final response = await request.close();
-    if (response.statusCode == HttpStatus.notFound) {
+    if (response.statusCode != HttpStatus.accepted) {
       return const AssetImage('assets/image_base.jpg');
     }
     return NetworkImage(url);
