@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/src/screens/profile/email_check.dart';
 
 import '../articles/widget/articles_list_screen.dart';
+import '../navigator/manager.dart';
+import '../screens/mock.dart';
 
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final navigatorManager = NavigatorManager();
+
+  App({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    home: const NewsListScreen(),
+    navigatorKey: navigatorManager.navigatorKey,
+    routes: {
+      '/': (context) => Home(navigatorManager: navigatorManager),
+      '/movement': (context) =>
+          Home(navigatorManager: navigatorManager),
+      '/profile': (context) =>
+          EmailCheck(navigatorManager: navigatorManager),
+      '/scan' : (context) =>
+          Home(navigatorManager: navigatorManager),
+    },
+    initialRoute: '/profile',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
